@@ -1,5 +1,6 @@
 from distutils.core import setup, Extension
 from os import environ
+import os
 from os.path import dirname, join, exists
 import sys
 from platform import architecture
@@ -79,6 +80,8 @@ else:
     if not jre_home:
         raise Exception('Unable to determine JRE_HOME')
     cpu = 'amd64' if architecture()[0] == '64bit' else 'i386'
+    if os.uname()[4][:3] == "arm":
+        cpu = "arm"
 
     if platform == 'win32':
         incl_dir = join(jdk_home, 'include', 'win32')
